@@ -1,1 +1,7 @@
 .pc
+.classpath
+.project
+build
+.externalToolBuilders
+src/gen-java
+**.swp
