@@ -1,0 +1,31 @@
+--- a/debian/cassandra.in.sh
++++ b/debian/cassandra.in.sh
+@@ -1,6 +1,7 @@
+ 
+ # The directory where Cassandra's configs live (required)
+ CASSANDRA_CONF=/etc/cassandra
++CASSANDRA_HOME=/usr/share/cassandra
+ 
+ # The java classpath (required)
+ CLASSPATH=$CASSANDRA_CONF
+--- a/debian/init
++++ b/debian/init
+@@ -21,6 +21,7 @@
+ CONFDIR=/etc/cassandra
+ JSVC=/usr/bin/jsvc
+ WAIT_FOR_START=10
++CASSANDRA_HOME=/usr/share/cassandra
+ 
+ # The first existing directory is used for JAVA_HOME if needed.
+ JVM_SEARCH_DIRS="/usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-sun"
+--- a/conf/cassandra-env.sh
++++ b/conf/cassandra-env.sh
+@@ -95,7 +95,7 @@
+ check_openjdk=$(java -version 2>&1 | awk '{if (NR == 2) {print $1}}')
+ if [ "$check_openjdk" != "OpenJDK" ]
+ then
+-    JVM_OPTS="$JVM_OPTS -javaagent:$CASSANDRA_HOME/lib/jamm-0.2.2.jar"
++    JVM_OPTS="$JVM_OPTS -javaagent:$CASSANDRA_HOME/jamm-0.2.2.jar"
+ fi
+ 
+ # enable thread priorities, primarily so we can give periodic tasks
